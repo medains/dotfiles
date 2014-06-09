@@ -44,5 +44,27 @@ set encoding=utf-8
 " Always show statusline (powerline)
 set laststatus=2
 
-
-
+" TAB behaviour - always use spaces, 4 chars
+set ts=4
+set shiftwidth=4
+set expandtab
+set shiftround
+" Make tabs show visibly
+set list
+set listchars=tab:\|.
+" Display line numbers
+set number
+" Search behaviour
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+" No linewrapping
+set nowrap
+" Display lines wrapped though
+set linebreak
+set showbreak=▹
+" auto indent where possible
+set autoindent
+" make backspace work naturally in insert mode
+set backspace=indent,eol,start
