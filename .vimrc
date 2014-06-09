@@ -34,9 +34,10 @@ filetype plugin indent on
 syntax on
 " Use light for gvim, dark for terminal
 if has('gui_running')
-	set background=light
+    set background=light
+    set guioptions-=T
 else
-	set background=dark
+    set background=dark
 endif
 colorscheme solarized
 
