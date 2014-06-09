@@ -1,15 +1,16 @@
 " Vundle
+set nocompatible
 filetype off
 
 let g:vundle_default_git_proto = 'git'
 set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
+call vundle#begin()
 
 " Bundles
-Bundle 'jlanzarotta/bufexplorer'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'kien/ctrlp.vim'
-Bundle 'Lokaltog/vim-powerline'
+Plugin 'jlanzarotta/bufexplorer'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'kien/ctrlp.vim'
+Plugin 'Lokaltog/vim-powerline'
 
 " Check out these bundles
 " Bundle 'tpope/vim-fugitive'
@@ -24,8 +25,10 @@ Bundle 'Lokaltog/vim-powerline'
 " Bundle 'neochrome/todo.vim'
 " Bundle 'justinmk/vim-sneak'
 
+call vundle#end()
+
 " Filetype on
-filetype plugin on
+filetype plugin indent on
 " Highlighting
 syntax on
 
