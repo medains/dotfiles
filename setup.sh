@@ -28,6 +28,7 @@ function linkDotfile {
 
 linkDotfile .vim
 linkDotfile .vimrc
+linkDotfile .inputrc
 
 git submodule init
 git submodule update
