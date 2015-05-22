@@ -7,12 +7,15 @@ set rtp+=~/.vim/bundle/vundle
 call vundle#begin()
 
 " Bundles
+Plugin 'gmarik/Vundle.vim'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'kien/ctrlp.vim'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'neochrome/todo.vim' " Todo manage
 Plugin 'hallison/vim-markdown' " Markdown syntax highlighting
+Plugin 'tpope/vim-fugitive'
+Plugin 'scrooloose/syntastic'
 
 " Check out these bundles
 " Bundle 'tpope/vim-fugitive' - git wrapper
@@ -65,8 +68,27 @@ set hlsearch
 set nowrap
 " Display lines wrapped though
 set linebreak
-set showbreak=▹
+set showbreak=}
 " auto indent where possible
 set autoindent
 " make backspace work naturally in insert mode
 set backspace=indent,eol,start
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ["eslint"]
+
+function! GitWindow()
+    let dir = fugitive#extract_git_dir(expand('%:p'))
+    if dir !=# ''
+        execute 'Gstatus'
+    endif
+endfun
+
+autocmd! BufWritePost .vimrc source %

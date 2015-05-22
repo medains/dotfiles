@@ -1,0 +1,53 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "jquery": true,
+  },
+  "plugins": [
+    "react",
+  ],
+  "ecmaFeatures": {
+    "arrowFunctions": true, // (arg1, arg2) => { doSomeStuff() }
+    "blockBindings": true, // let, const
+    "defaultParams": true, // function blah(arg1, arg2=false)
+    "destructuring": true, // var [a, b] = [1, 2]
+    "forOf": true, // for..of loops
+    "objectLiteralShorthandMethods": true, // {doRender() { return blah; }}
+    "restParams": true,
+    "spread": true,
+    "jsx": true,
+  },
+  "globals": {
+    "module": true,
+  },
+  "rules": {
+    // functionality
+    "strict": 0,
+    "no-underscore-dangle": 0, // it'd be nice to be able to use this, but it keeps complaining about _id mongo fields
+    "no-console": 2,
+    "default-case": 1, // require default statement inside select
+    "guard-for-in": 1, // require .hasOwnProperty inside for..in loop
+    "no-floating-decimal": 2, // disallow .5, -.7
+    "no-param-reassign": 2,
+    "no-self-compare": 2,
+    "no-warning-comments": [1, {"terms": ["debug", "todo"]}],
+    "radix": 2,
+    "no-lonely-if": 1,
+    "no-unneeded-ternary": 1,
+
+    // style
+    "indent": [2, 4, {"indentSwitchCase": true}],
+    "brace-style": [1, "1tbs", {"allowSingleLine": true}],
+    "camelcase": [1, {"properties": "never"}],
+    "quotes": [1, "single", "avoid-escape"],
+    "comma-dangle": [1, "always-multiline"],
+    "curly": [2, "multi-line"],
+    "space-after-keywords": 1,
+    "space-before-blocks": 1,
+    "space-before-function-paren": [1, "never"],
+    "space-in-brackets": 1,
+    "space-in-parens": 1,
+  }
+}
+
