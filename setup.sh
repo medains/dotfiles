@@ -34,5 +34,4 @@ linkDotfile .eslintrc
 git submodule init
 git submodule update
 
-echo "Run 'vim +PluginInstall +qall' to install any vundle plugins"
 vim +PluginInstall +qall > /dev/null
