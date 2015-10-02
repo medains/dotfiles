@@ -37,7 +37,7 @@
     "no-unneeded-ternary": 1,
 
     // style
-    "indent": [2, 4, {"indentSwitchCase": true}],
+    "indent": [2, 4, {"SwitchCase": 1}],
     "brace-style": [1, "1tbs", {"allowSingleLine": true}],
     "camelcase": [1, {"properties": "never"}],
     "quotes": [1, "single", "avoid-escape"],

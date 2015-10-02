@@ -83,6 +83,13 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ["eslint"]
+let g:syntastic_php_checkers = ["phpcs","phpmd"]
+let g:syntastic_php_phpcs_args="--report=csv --standard=/home/cameigh/PHPCS-PEAR.xml"
+let g:syntastic_php_phpmd_post_args="cleancode,codesize,naming,unusedcode"
+let g:syntastic_aggregate_errors=1
+let g:syntastic_id_checkers=1
+let g:syntastic_html_tidy_exec= 'tidy'
+let g:syntastic_html_checkers = ["tidy"]
 
 function! GitWindow()
     let dir = fugitive#extract_git_dir(expand('%:p'))
@@ -91,4 +98,4 @@ function! GitWindow()
     endif
 endfun
 
-autocmd! BufWritePost .vimrc source %
+autocmd! BufWritePost .vimrc source $MYVIMRC
