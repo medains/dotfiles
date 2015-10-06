@@ -11,14 +11,13 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'kien/ctrlp.vim'
-Plugin 'Lokaltog/vim-powerline'
+Bundle 'bling/vim-airline'
 Plugin 'neochrome/todo.vim' " Todo manage
 Plugin 'hallison/vim-markdown' " Markdown syntax highlighting
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/syntastic'
 
 " Check out these bundles
-" Bundle 'tpope/vim-fugitive' - git wrapper
 " Bundle 'sjl/gundo.vim' - undo visualisation
 " Bundle 'godlygeek/tabular' - lining up text
 " Bundle 'benmills/vimux' - tmux integration
@@ -74,9 +73,9 @@ set autoindent
 " make backspace work naturally in insert mode
 set backspace=indent,eol,start
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -91,6 +90,13 @@ let g:syntastic_id_checkers=1
 let g:syntastic_html_tidy_exec= 'tidy'
 let g:syntastic_html_checkers = ["tidy"]
 
+let g:airline_powerline_fonts = 1
+if has('gui_running')
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
+endif
+set noshowmode
+
+
 function! GitWindow()
     let dir = fugitive#extract_git_dir(expand('%:p'))
     if dir !=# ''
@@ -98,4 +104,4 @@ function! GitWindow()
     endif
 endfun
 
-autocmd! BufWritePost .vimrc source $MYVIMRC
+autocmd! BufWritePost .vimrc nested :source $MYVIMRC
