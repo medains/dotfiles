@@ -1,0 +1,2 @@
+Host *+*
+ProxyCommand ssh $(echo %h | sed 's/+[^+]*$//;s/\([^+%%]*\)%%\([^+]*\)$/\2 -l \1/;s/:/ -p /') nc -w3600 $(echo %h | sed 's/^.*+//;/:/!s/$/ %p/;s/:/ /')

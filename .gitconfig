@@ -1,0 +1,12 @@
+[push]
+	default = current
+[pull]
+	default = current
+[color]
+	ui = true
+[core]
+    whitespace = trailing-space,space-before-tab,indent-with-tab
+    excludesfile = ~/.gitignore-global
+[alias]
+	st = status -sb
+	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short

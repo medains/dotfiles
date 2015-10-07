@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ruleset name="Custom Standard">
+    <description>A custom coding standard</description>
+    <rule ref="PSR2">
+        <exclude name="PEAR.Commenting.ClassComment"/>
+        <exclude name="PEAR.Commenting.FileComment"/>
+        <exclude name="PEAR.Commenting.FunctionComment"/>
+        <exclude name="PSR2.Classes.ClassDeclaration"/>
+        <exclude name="PSR2.Methods.MethodDeclaration"/>
+        <exclude name="Squiz.WhiteSpace.FunctionOpeningBraceSpace"/>
+        <exclude name="Squiz.Functions.MultiLineFunctionDeclaration"/>
+        <exclude name="Generic.Functions.OpeningFunctionBraceBsdAllman"/>
+        <exclude name="PEAR.Functions.FunctionCallSignature"/>
+    </rule>
+</ruleset>
