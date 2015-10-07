@@ -125,6 +125,9 @@ fi
 
 if [ -x /usr/bin/dircolors ]; then
 	eval "`dircolors -b ~/.dir_colors`"
+else
+    # with no dircolors, we might be on OSX with clicolor
+    export CLICOLOR=YES
 fi
 
 export EDITOR=vim
