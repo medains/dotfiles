@@ -1,3 +1,5 @@
+[include]
+    path = ~/.gitlocal/config
 [push]
 	default = current
 [pull]
