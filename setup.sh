@@ -54,4 +54,4 @@ performLink phpcs-rules.xml "${HOME}/.phpcs/rules.xml"
 git submodule init
 git submodule update
 
-vim +PluginInstall +qall > /dev/null
+vim -T dumb -e -c "set nomore" +PluginInstall +qall > /dev/null
