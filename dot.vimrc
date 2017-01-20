@@ -104,4 +104,19 @@ function! GitWindow()
     endif
 endfun
 
+" 'wild' menu for tab completion in vim command mode
+set wildmenu
+
+" Re-read vimrc if it is written
 autocmd! BufWritePost .vimrc nested :source $MYVIMRC
+
+" CTRL-L un-highlights a search result without changing the search buffer
+if maparg('<C-L>', 'n') ==# ''
+    nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+endif
+
+" I like 'displayed' non-text (line endings for instance) to have a different
+" background
+highlight NonText term=bold cterm=bold ctermfg=11 gui=bold guifg=Blue ctermbg=16
+
+
