@@ -12,3 +12,5 @@
 [alias]
 	st = status -sb
 	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+[include]
+    path = .gitinclude/user.conf
