@@ -15,7 +15,7 @@ Bundle 'bling/vim-airline'
 Plugin 'neochrome/todo.vim' " Todo manage
 Plugin 'hallison/vim-markdown' " Markdown syntax highlighting
 Plugin 'tpope/vim-fugitive'
-Plugin 'scrooloose/syntastic'
+Plugin 'w0rp/ale'
 
 " Check out these bundles
 " Bundle 'sjl/gundo.vim' - undo visualisation
@@ -73,23 +73,6 @@ set autoindent
 " make backspace work naturally in insert mode
 set backspace=indent,eol,start
 
-" set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = ["eslint"]
-let g:syntastic_php_checkers = ["phpcs","phpmd"]
-let g:syntastic_php_phpcs_args="--report=csv --standard=/home/cameigh/PHPCS-PEAR.xml"
-let g:syntastic_php_phpmd_post_args="cleancode,codesize,naming,unusedcode"
-let g:syntastic_aggregate_errors=1
-let g:syntastic_id_checkers=1
-let g:syntastic_html_tidy_exec= 'tidy'
-let g:syntastic_html_checkers = ["tidy"]
-
 let g:airline_powerline_fonts = 1
 if has('gui_running')
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
@@ -119,4 +102,8 @@ endif
 " background
 highlight NonText term=bold cterm=bold ctermfg=11 gui=bold guifg=Blue ctermbg=16
 
-
+" Always keep the w0rp/ale syntax gutter open
+let g:ale_sign_column_always = 1
+" Set PHPCS standard file
+let g:ale_php_phpcs_standard = '~/.phpcs/rules.xml'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
