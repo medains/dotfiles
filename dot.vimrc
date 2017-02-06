@@ -1,4 +1,5 @@
-" Vundle
+" Plugin Management
+" -----------------
 set nocompatible
 filetype off
 
@@ -6,32 +7,47 @@ let g:vundle_default_git_proto = 'git'
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" Bundles
+" Vundle manages itself
 Plugin 'VundleVim/Vundle.vim'
+
+" Buffers, File management
 Plugin 'jlanzarotta/bufexplorer'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'FelikZ/ctrlp-py-matcher'
+Plugin 'bogado/file-line'
+
+" Syntax and colours
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'kien/ctrlp.vim'
-Bundle 'bling/vim-airline'
-Plugin 'neochrome/todo.vim' " Todo manage
-Plugin 'hallison/vim-markdown' " Markdown syntax highlighting
-Plugin 'tpope/vim-fugitive'
+Plugin 'hallison/vim-markdown'     " Markdown syntax highlighting
+"Plugin 'cakebaker/scss-syntax.vim' " SCSS/SASS
+"Plugin 'groenewege/vim-less'       " LESS
+
+" Linting
 Plugin 'w0rp/ale'
+" Plugin 'scrooloose/syntastic'  " Use this prior to vim 8
 
-" Check out these bundles
-" Bundle 'sjl/gundo.vim' - undo visualisation
-" Bundle 'godlygeek/tabular' - lining up text
-" Bundle 'benmills/vimux' - tmux integration
-" Bundle 'scrooloose/nerdtree' - file tree
-" Bundle 'TomNomNom/xoria256.vim' - another colorscheme
-" Bundle 'tomasr/molokai' - another colorscheme
-" Bundle 'rking/ag.vim' - silver searcher plugin
-" Bundle 'jpalardy/vim-slime' - screen/tmux integration
-" Bundle 'justinmk/vim-sneak' - adds a search motion similar to f/t
+" Status line
+Plugin 'bling/vim-airline'
 
+" git helper
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+
+" Autocompletion
+Plugin 'ervandew/supertab'          " Allow tabs for autocomplete and insert of tab
+Plugin 'shawncplus/phpcomplete.vim' " PHP autocompletion
+Plugin 'SirVer/ultisnips'           " Snippet engine
+Plugin 'honza/vim-snippets'         " Standard snippets
+
+" Misc functions
+Plugin 'godlygeek/tabular'  " lining up text
+Plugin 'neochrome/todo.vim' " Todo manage
+Plugin 'sjl/gundo.vim' " undo visualisation
 call vundle#end()
 
 " Filetype on
 filetype plugin indent on
+
 " Highlighting
 syntax on
 " Use light for gvim, dark for terminal
@@ -45,11 +61,12 @@ endif
 colorscheme solarized
 
 set encoding=utf-8
-" Always show statusline (powerline)
+" Always show statusline (airline)
 set laststatus=2
 
 " TAB behaviour - always use spaces, 4 chars
-set ts=4
+set tabstop=4
+set softtabstop=4
 set shiftwidth=4
 set expandtab
 set shiftround
@@ -73,19 +90,12 @@ set autoindent
 " make backspace work naturally in insert mode
 set backspace=indent,eol,start
 
+let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 if has('gui_running')
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
 endif
 set noshowmode
-
-
-function! GitWindow()
-    let dir = fugitive#extract_git_dir(expand('%:p'))
-    if dir !=# ''
-        execute 'Gstatus'
-    endif
-endfun
 
 " 'wild' menu for tab completion in vim command mode
 set wildmenu
@@ -107,3 +117,34 @@ let g:ale_sign_column_always = 1
 " Set PHPCS standard file
 let g:ale_php_phpcs_standard = '~/.phpcs/rules.xml'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_linters = {'javascript': ['eslint']}
+
+" Supertab should use ctrl-x ctrl-o for completion (omnifunc)
+" still falls back to the ctrl-n behaviour for non-omnifunc files
+let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+
+" Set omnifunc for php files
+autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+
+set completeopt=longest,menuone
+
+" Snippet configuration
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" Gundo configuration
+let g:gundo_close_on_revert=1
+nnoremap <F5> :GundoToggle<CR>
+
+" Ctrl matcher
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+let g:ctrlp_user_command = 'ag %s --ignore-case --skip-vcs-ignores --hidden --nocolor --nogroup
+    \ --ignore ".git/"
+    \ --ignore "build/"
+    \ --ignore "node_modules"
+    \ -g ""'
+let g:ctrlp_lazy_update=100
+
+" YAML tabstop smaller
+autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
