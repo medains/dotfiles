@@ -1,6 +1,6 @@
 alias less='less -R'
 
-alias cls="echo -ne '\033c'"
+alias cls="echo -ne '\033c';echo -ne '\033[3J'"
 
 # Useful ls aliases
 alias ll='ls -alF'
