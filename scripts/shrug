@@ -1,0 +1,4 @@
+#!/usr/local/bin/bash
+
+echo -en '\u00af\\_(\u30c4)_/\u00af' | pbcopy
+

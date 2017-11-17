@@ -45,7 +45,7 @@
     "curly": [2, "multi-line"],
     "object-curly-spacing": [1, "always"],
     "array-bracket-spacing": [1, "always"],
-    "space-after-keywords": 1,
+    "keyword-spacing": 1,
     "space-before-blocks": 1,
     "space-before-function-paren": [1, "never"],
     "space-in-parens": 1,

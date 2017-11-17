@@ -43,6 +43,9 @@ Plugin 'honza/vim-snippets'         " Standard snippets
 Plugin 'godlygeek/tabular'  " lining up text
 Plugin 'neochrome/todo.vim' " Todo manage
 Plugin 'sjl/gundo.vim' " undo visualisation
+
+" Trying stuff out
+Plugin 'lukaszkorecki/workflowish'  " Workflowy-like todo list
 call vundle#end()
 
 " Filetype on
@@ -130,8 +133,10 @@ set completeopt=longest,menuone
 
 " Snippet configuration
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+let g:UltiSnipsRemoveSelectModeMappings = 0
+let g:UltiSnipsListSnippets="<s-tab>"
 
 " Gundo configuration
 let g:gundo_close_on_revert=1
@@ -148,3 +153,7 @@ let g:ctrlp_lazy_update=100
 
 " YAML tabstop smaller
 autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
+
+" Vimflowy setup commands
+autocmd BufWinLeave *.wofl mkview
+autocmd BufWinEnter *.wofl silent loadview
