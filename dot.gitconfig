@@ -14,3 +14,5 @@
 	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
 [include]
     path = .gitinclude/user.conf
+[includeIf "gitdir:~/src/hermes/"]
+    path = .gitinclude/hermes.conf
