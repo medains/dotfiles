@@ -1,5 +1,4 @@
 *.swp
 dot.vim/bundle/*
 dot.vim/view/*
-/*
 !dot.vim/bundle/Vundle.vim

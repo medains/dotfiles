@@ -18,7 +18,6 @@ Plugin 'bogado/file-line'
 
 " Syntax and colours
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'hallison/vim-markdown'     " Markdown syntax highlighting
 "Plugin 'cakebaker/scss-syntax.vim' " SCSS/SASS
 "Plugin 'groenewege/vim-less'       " LESS
 
@@ -43,9 +42,14 @@ Plugin 'honza/vim-snippets'         " Standard snippets
 Plugin 'godlygeek/tabular'  " lining up text
 Plugin 'neochrome/todo.vim' " Todo manage
 Plugin 'sjl/gundo.vim' " undo visualisation
+Plugin 'plasticboy/vim-markdown'     " Markdown syntax highlighting and other details
+
+" Apply per-repo editor config
+Plugin 'editorconfig/editorconfig-vim'
 
 " Trying stuff out
 Plugin 'lukaszkorecki/workflowish'  " Workflowy-like todo list
+
 call vundle#end()
 
 " Filetype on
@@ -120,7 +124,7 @@ let g:ale_sign_column_always = 1
 " Set PHPCS standard file
 let g:ale_php_phpcs_standard = '~/.phpcs/rules.xml'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_linters = {'javascript': ['eslint']}
+let g:ale_linters = {'javascript': ['eslint'], 'java': ['javac'] }
 
 " Supertab should use ctrl-x ctrl-o for completion (omnifunc)
 " still falls back to the ctrl-n behaviour for non-omnifunc files
@@ -144,7 +148,7 @@ nnoremap <F5> :GundoToggle<CR>
 
 " Ctrl matcher
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-let g:ctrlp_user_command = 'ag %s --ignore-case --skip-vcs-ignores --hidden --nocolor --nogroup
+let g:ctrlp_user_command = 'ag %s --ignore-case --hidden --nocolor --nogroup
     \ --ignore ".git/"
     \ --ignore "build/"
     \ --ignore "node_modules"
@@ -157,3 +161,9 @@ autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
 " Vimflowy setup commands
 autocmd BufWinLeave *.wofl mkview
 autocmd BufWinEnter *.wofl silent loadview
+
+" syntax based text hiding
+set conceallevel=2
+
+" turn off folding in markdown, it's annoying
+let g:vim_markdown_folding_disabled=1
