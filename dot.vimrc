@@ -1,87 +1,78 @@
-" Plugin Management
-" -----------------
-set nocompatible
-filetype off
+" ------------------------------
+" Plugin Section
+" ------------------------------
+" Install vim-plug if it isn't present
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-let g:vundle_default_git_proto = 'git'
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" Run PlugInstall if there are missing plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \| PlugInstall --sync | source $MYVIMRC
+\| endif
 
-" Vundle manages itself
-Plugin 'VundleVim/Vundle.vim'
-
-" Buffers, File management
-Plugin 'jlanzarotta/bufexplorer'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'FelikZ/ctrlp-py-matcher'
-Plugin 'bogado/file-line'
-
-" Syntax and colours
-Plugin 'altercation/vim-colors-solarized'
-"Plugin 'cakebaker/scss-syntax.vim' " SCSS/SASS
-"Plugin 'groenewege/vim-less'       " LESS
-
-" Linting
-Plugin 'w0rp/ale'
-" Plugin 'scrooloose/syntastic'  " Use this prior to vim 8
+" Define plugin list
+call plug#begin('~/.vim/plugged')
 
 " Status line
-Plugin 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+" Linter
+Plug 'dense-analysis/ale'
+" Colours
+Plug 'lifepillar/vim-solarized8'
+" Git Helpers
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+" Markdown support
+Plug 'preservim/vim-markdown'
+" Pay attention to editorconfig files
+Plug 'editorconfig/editorconfig-vim'
+" Terraform niceties
+Plug 'hashivim/vim-terraform'
 
-" git helper
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
+" completion plugin
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Autocompletion
-Plugin 'ervandew/supertab'          " Allow tabs for autocomplete and insert of tab
-Plugin 'shawncplus/phpcomplete.vim' " PHP autocompletion
-Plugin 'SirVer/ultisnips'           " Snippet engine
-Plugin 'honza/vim-snippets'         " Standard snippets
+" Fuzzy files
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
-" Misc functions
-Plugin 'godlygeek/tabular'  " lining up text
-Plugin 'neochrome/todo.vim' " Todo manage
-Plugin 'sjl/gundo.vim' " undo visualisation
-Plugin 'plasticboy/vim-markdown'     " Markdown syntax highlighting and other details
+Plug 'statox/vim-compare-lines'
 
-" Apply per-repo editor config
-Plugin 'editorconfig/editorconfig-vim'
+call plug#end()
+" End of plugins section
+" ------------------------------
 
-" Trying stuff out
-Plugin 'lukaszkorecki/workflowish'  " Workflowy-like todo list
+" Deactivate backwards compatibility
+set nocompatible
 
-call vundle#end()
-
-" Filetype on
+" Filetype plugins + indenting
 filetype plugin indent on
 
-" Highlighting
-syntax on
-" Use light for gvim, dark for terminal
-if has('gui_running')
-    set background=light
-    set guioptions-=T
-else
-    set t_Co=256
-    set background=dark
-endif
-colorscheme solarized
+" Activate colour scheme
+set termguicolors
+set background=light
+autocmd vimenter * ++nested colorscheme solarized8_high
 
+" Default to UTF-8
 set encoding=utf-8
 " Always show statusline (airline)
 set laststatus=2
 
-" TAB behaviour - always use spaces, 4 chars
+" Default TAB behaviour - always use spaces, 4 chars
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
 set shiftround
+
+" Show line numbers
+set number
 " Make tabs show visibly
 set list
 set listchars=tab:\|.
-" Display line numbers
-set number
 " Search behaviour
 set ignorecase
 set smartcase
@@ -97,20 +88,15 @@ set autoindent
 " make backspace work naturally in insert mode
 set backspace=indent,eol,start
 
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#tabline = 1
 let g:airline_powerline_fonts = 1
-if has('gui_running')
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
-endif
+set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
 set noshowmode
-
 " 'wild' menu for tab completion in vim command mode
 set wildmenu
 
-" Re-read vimrc if it is written
-autocmd! BufWritePost .vimrc nested :source $MYVIMRC
-
-" CTRL-L un-highlights a search result without changing the search buffer
+" Ctrl-L cancels search-highlighting
 if maparg('<C-L>', 'n') ==# ''
     nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 endif
@@ -119,51 +105,52 @@ endif
 " background
 highlight NonText term=bold cterm=bold ctermfg=11 gui=bold guifg=Blue ctermbg=16
 
-" Always keep the w0rp/ale syntax gutter open
+" Always keep the ale syntax gutter open
 let g:ale_sign_column_always = 1
 " Set PHPCS standard file
-let g:ale_php_phpcs_standard = '~/.phpcs/rules.xml'
+" let g:ale_php_phpcs_standard = '~/.phpcs/rules.xml'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_linters = {'javascript': ['eslint'], 'java': ['javac'] }
-
-" Supertab should use ctrl-x ctrl-o for completion (omnifunc)
-" still falls back to the ctrl-n behaviour for non-omnifunc files
-let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-
-" Set omnifunc for php files
-autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-
-set completeopt=longest,menuone
-
-" Snippet configuration
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-let g:UltiSnipsRemoveSelectModeMappings = 0
-let g:UltiSnipsListSnippets="<s-tab>"
-
-" Gundo configuration
-let g:gundo_close_on_revert=1
-nnoremap <F5> :GundoToggle<CR>
-
-" Ctrl matcher
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-let g:ctrlp_user_command = 'ag %s --ignore-case --hidden --nocolor --nogroup
-    \ --ignore ".git/"
-    \ --ignore "build/"
-    \ --ignore "node_modules"
-    \ -g ""'
-let g:ctrlp_lazy_update=100
-
-" YAML tabstop smaller
-autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
-
-" Vimflowy setup commands
-autocmd BufWinLeave *.wofl mkview
-autocmd BufWinEnter *.wofl silent loadview
-
-" syntax based text hiding
-set conceallevel=2
+let g:ale_disable_lsp = 1
+" Shortcut keys for errors
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " turn off folding in markdown, it's annoying
 let g:vim_markdown_folding_disabled=1
+
+" COC completion on tab
+
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+" FZF bindings
+nnoremap <silent> <leader>f :GFiles<CR>
+nmap <leader>b :Buffers<CR>
+
+" FZF + ripgrep for project wide search
+fun! s:openFileAtLocation(result)
+  if len(a:result) == 0
+    return
+  endif
+  let filePos = split(a:result, ':')
+  exec 'edit +' . l:filePos[1] . ' ' . l:filePos[0]
+endfun
+
+let rgsearchfiles = 'rg --line-number --hidden --glob "!*.terraform" --glob "!*.class" --glob "!.idea/*" --glob "!**/.idea/*" --glob "!.git/*" --glob "!**/.git/*" --glob "!*.swp" ''.*'''
+command! -bang -nargs=* FuzzySearchFiles call fzf#run(fzf#wrap({
+ \ 'source': rgsearchfiles,
+ \ 'options': '--delimiter :',
+ \ 'sink': function('<sid>openFileAtLocation')
+ \ }))
+nnoremap <silent> <Leader>s :FuzzySearchFiles<CR>
+
+nmap <silent> <leader>n<CR> :tab drop notes.md<CR>

@@ -1,2 +1,37 @@
-Host *+*
-ProxyCommand ssh $(echo %h | sed 's/+[^+]*$//;s/\([^+%%]*\)%%\([^+]*\)$/\2 -l \1/;s/:/ -p /') nc -w3600 $(echo %h | sed 's/^.*+//;/:/!s/$/ %p/;s/:/ /')
+
+# For ranges that contain changing servers (AWS accounts with scaling)
+#
+# StrictHostKeyChecking no
+# UserKnownHostsFile /dev/null
+
+# Ensure sequence of auth
+#
+# PreferredAuthentications=publickey,password,keyboard-interactive
+
+# Force one identity file
+#
+# IdentityFile PATH
+# IdentitiesOnly true
+
+# Proxying
+#
+# ProxyJump hostname_or_alias
+# ProxyCommand ssh HOSTNAME nc %h %p
+
+# Proxying using vault ssh engine (requires sshpass)
+#
+# ProxyCommand vault ssh -role ROLENAME -mode otp PROXY_THAT_USES_VAULT_AUTH nc %h %p
+
+# Silence MOTD (useful on gitlab ssh)
+#
+# LogLevel QUIET
+
+# Running local commands (like sshuttle or something)
+#
+# PermitLocalCommand yes
+# LocalCommand sshuttle -r %h range range range
+
+# A trick to SSH via another host without setting it here as a proxy
+#
+# Host *+*
+# ProxyCommand ssh $(echo %h | sed 's/+[^+]*$//;s/\([^+%%]*\)%%\([^+]*\)$/\2 -l \1/;s/:/ -p /') nc -w3600 $(echo %h | sed 's/^.*+//;/:/!s/$/ %p/;s/:/ /')

@@ -1,4 +1,6 @@
 *.swp
+dot.vim/autoload/*
 dot.vim/bundle/*
+dot.vim/plugged/*
 dot.vim/view/*
 !dot.vim/bundle/Vundle.vim

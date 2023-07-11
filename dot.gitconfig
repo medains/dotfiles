@@ -1,18 +1,22 @@
 [include]
-    path = ~/.gitlocal/config
+  path = ~/.gitlocal/config
 [push]
-	default = current
+  default = current
 [pull]
-	default = current
+  default = current
 [color]
-	ui = true
+  ui = true
 [core]
-    whitespace = trailing-space,space-before-tab,indent-with-tab
-    excludesfile = ~/.gitignore-global
+  whitespace = trailing-space,space-before-tab,indent-with-tab
+  excludesfile = ~/.gitignore-global
+  hooksPath = ~/.githooks
 [alias]
-	st = status -sb
-	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+  st = status -sb
+  hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+  cleanup = "!git branch --merged | grep  -v '\\*\\|main' | xargs -n 1 -r git branch -d"
+[fetch]
+  prune = true
 [include]
-    path = .gitinclude/user.conf
-[includeIf "gitdir:~/src/hermes/"]
-    path = .gitinclude/hermes.conf
+  path = .gitinclude/user.conf
+[includeIf "gitdir:~/src/CLIENT/"]
+  path = .gitinclude/CLIENT.conf
