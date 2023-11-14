@@ -18,5 +18,7 @@
   prune = true
 [include]
   path = .gitinclude/user.conf
-[includeIf "gitdir:~/src/CLIENT/"]
-  path = .gitinclude/CLIENT.conf
+[includeIf "gitdir:~/src/hl/"]
+  path = .gitinclude/hl.conf
+[init]
+	defaultBranch = main

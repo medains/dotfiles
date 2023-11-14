@@ -39,6 +39,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+" Java
+Plug 'artur-shaik/vim-javacomplete2'
+
 Plug 'statox/vim-compare-lines'
 
 call plug#end()
@@ -154,3 +157,14 @@ command! -bang -nargs=* FuzzySearchFiles call fzf#run(fzf#wrap({
 nnoremap <silent> <Leader>s :FuzzySearchFiles<CR>
 
 nmap <silent> <leader>n<CR> :tab drop notes.md<CR>
+
+" Background must be 'dark' for Solarized light to work in cmder
+set bg=dark
+
+" Disable annoying error bells
+set noerrorbells
+set vb t_vb=
+
+" Java completion
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+

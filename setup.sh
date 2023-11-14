@@ -51,7 +51,4 @@ ensureDir "${HOME}/.phpcs" 755
 performLink special.sshconfig "${HOME}/.ssh/config"
 performLink phpcs-rules.xml "${HOME}/.phpcs/rules.xml"
 
-git submodule init
-git submodule update
-
 vim -T dumb -e -c "set nomore" +PluginInstall +qall > /dev/null

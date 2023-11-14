@@ -1,4 +1,4 @@
-alias less='less -R'
+alias less='less -R -Q'
 
 alias cls="echo -ne '\033c';echo -ne '\033[3J'"
 

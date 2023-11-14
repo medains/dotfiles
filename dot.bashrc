@@ -12,3 +12,4 @@ export LESSCHARSET=UTF-8
 
 export PATH="/usr/local/sbin:$PATH"
 
+bind 'set bell-style none'
